@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from './config/config.module';
 import { Configuration } from './config/config.key';
 import { ConfigService } from './config/config.service';
-import { RoleModule } from './content/role/role.module';
-import { AuthModule } from './content/auth/auth.module';
+import { RoleModule } from './modules/role/role.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { UsuarioModule } from './content/usuario/usuario.module';
 
