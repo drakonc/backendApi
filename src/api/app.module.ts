@@ -5,7 +5,7 @@ import { ConfigService } from './config/config.service';
 import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './database/database.module';
-import { UsuarioModule } from './content/usuario/usuario.module';
+import { UsuarioModule } from './modules/usuario/usuario.module';
 
 @Module({
   imports: [ConfigModule, RoleModule, AuthModule, DatabaseModule, UsuarioModule]
