@@ -8,7 +8,6 @@ import { RoleRepository } from '../role/role.repository';
 import { Role } from '../role/role.entity';
 import { genSalt, hash } from 'bcryptjs';
 import { StatusType } from 'src/api/shared/Utils/status.type.enum';
-import { createQueryBuilder, getRepository } from 'typeorm';
 
 
 @Injectable()
@@ -29,14 +28,6 @@ export class UsuarioService {
             .where('us.status = :status', { status: StatusType.ACTIVO })
             .orderBy('us.id', 'ASC')
             .getMany();
-
-        const username = 'jcastro';
-        const correo = 'jcastro@gmail.com';
-        const p = await this._usuarioRepositorio.createQueryBuilder('us')
-            .where('us.username = :username', { username })
-            .orWhere('us.correo = :correo', { correo })
-            .getOne();
-        console.log(p)
 
         return usuarios.map((user: Usuario) => plainToClass(ReadeUsuarioDto, user));
     }
@@ -60,7 +51,7 @@ export class UsuarioService {
         usuario.apellido = createUsuarioDto.apellido;
         usuario.correo = createUsuarioDto.correo;
         usuario.username = createUsuarioDto.username;
-        usuario.password = await hash(createUsuarioDto.password, salt);
+        usuario.password = await hash(password, salt);
         usuario.role = existRole;
 
         const saveUsuario = await this._usuarioRepositorio.save(usuario);
