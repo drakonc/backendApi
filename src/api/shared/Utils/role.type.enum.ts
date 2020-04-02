@@ -1,4 +1,5 @@
 export enum RoleType {
-    ADMIN = 'Administrador',
-    GENERAL = 'General'
+    Administrador = 1,
+    General = 2,
+    Tecnico = 3
 }

@@ -1,0 +1,44 @@
+{
+	"usuario1": {
+		"id": 1,
+		"nombre": "Jose A",
+		"apellido": "Castro C",
+		"correo": "jcastro@gmail.com",
+		"username": "jcastro",
+		"status": "Activo",
+		"role": {
+			"id": 1,
+			"name": "Administrador",
+			"description": "Administra todo el sistema, Perfil mas Alto",
+			"status": "Activo"
+		}
+	},
+	"usuario2": {
+		"id": 2,
+		"nombre": "Natalia M",
+		"apellido": "Toncel G",
+		"correo": "ntoncel@gmail.com",
+		"username": "ntoncel",
+		"status": "Activo",
+		"role": {
+			"id": 2,
+			"name": "General",
+			"description": "Perfil solo para realizar Consultas al Sistema",
+			"status": "Activo"
+		}
+	},
+	"usuario3": {
+		"id": 3,
+		"nombre": "Maria C",
+		"apellido": "Cantillo G",
+		"correo": "mcantillo@gmail.com",
+		"username": "mcantillo",
+		"status": "Activo",
+		"role": {
+			"id": 3,
+			"name": "Tecnico",
+			"description": "Puede Llevar el Inventario de Los Equipos",
+			"status": "Activo"
+		}
+	}
+}

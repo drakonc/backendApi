@@ -1,0 +1,20 @@
+{
+	"rol1": {
+		"id": 1,
+		"name": "Administrador",
+		"description": "Administra todo el sistema, Perfil mas Alto",
+		"status": "Activo"
+	},
+	"rol2": {
+		"id": 2,
+		"name": "General",
+		"description": "Perfil solo para realizar Consultas al Sistema",
+		"status": "Activo"
+	},
+	"rol3": {
+		"id": 3,
+		"name": "Tecnico",
+		"description": "Puede Llevar el Inventario de Los Equipos",
+		"status": "Activo"
+	}
+}

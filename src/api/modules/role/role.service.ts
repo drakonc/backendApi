@@ -4,7 +4,6 @@ import { plainToClass } from 'class-transformer';
 import { RoleRepository } from './role.repository';
 import { Role } from './role.entity';
 import { StatusType } from '../../shared/Utils/status.type.enum';
-import { RoleType } from '../../shared/Utils/role.type.enum';
 import { ReadRoleDto, CreateRoleDto, UpdateRoleDto } from './dto';
 
 
@@ -58,20 +57,4 @@ export class RoleService {
         await this._roleRepository.update(id, { status: StatusType.INACTIVO });
     }
 
-
 }
-
-/* UpdateResult {
-  generatedMaps: [],
-  raw: OkPacket {
-    fieldCount: 0,
-    affectedRows: 1,
-    insertId: 0,
-    serverStatus: 2,
-    warningCount: 0,
-    message: '(Rows matched: 1  Changed: 1  Warnings: 0',
-    protocol41: true,
-    changedRows: 1
-  }
-}
- */
