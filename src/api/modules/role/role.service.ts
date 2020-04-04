@@ -30,7 +30,7 @@ export class RoleService {
 
     async getRole(roleId: number): Promise<ReadRoleDto> {
         if (!roleId) throw new BadRequestException('No Fue enviado ningun ID de rol');
-        const role: Role = await this._roleRepository.findOne(roleId, { where: { status: StatusType.INACTIVO } });
+        const role: Role = await this._roleRepository.findOne(roleId, { where: { status: StatusType.ACTIVO } });
         if (!role) throw new NotFoundException('El Rol no Fue Encontrado')
         return plainToClass(ReadRoleDto, role)
     }
