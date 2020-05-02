@@ -1,4 +1,4 @@
-import { Controller, Post, UsePipes, ValidationPipe, Body, Get } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Get, ParseIntPipe, Param } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { CreateUsuarioDto, ReadeUsuarioDto } from './dto';
 import { Usuario } from './usuario.entity';
@@ -11,6 +11,11 @@ export class UsuarioController {
     @Get()
     getAllUsersActive(): Promise<ReadeUsuarioDto[]> {
         return this._usuarioService.getAllUsersActive();
+    }
+
+    @Get(':usuarioId')
+    getOneUserActive(@Param('usuarioId', ParseIntPipe) usuarioId: number): Promise<ReadeUsuarioDto> {
+        return this._usuarioService.getOneUserActive(usuarioId);
     }
 
     @Post('/crearUsuario')

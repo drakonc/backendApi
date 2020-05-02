@@ -32,6 +32,22 @@ export class UsuarioService {
         return usuarios.map((user: Usuario) => plainToClass(ReadeUsuarioDto, user));
     }
 
+    async getOneUserActive(usuarioId: number) {
+
+        const usuario = await this._usuarioRepositorio
+            .createQueryBuilder('us')
+            .select(['us.id', 'us.nombre', 'us.apellido', 'us.correo', 'us.username', 'us.status', 'us.password'])
+            .addSelect(['ro.id', 'ro.name', 'ro.description', 'ro.status'])
+            .innerJoin('us.role', 'ro', 'us.role = ro.id')
+            .where('us.id = :id', { id: usuarioId })
+            .andWhere('us.status = :status', { status: StatusType.ACTIVO })
+            .getOne();
+
+        if (!usuario) throw new NotFoundException('Usuario No Encontrado');
+
+        return plainToClass(ReadeUsuarioDto, usuario);
+    }
+
     async crearUsuario(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
         const { username, correo, password, role } = createUsuarioDto;
         const usuario = new Usuario();
