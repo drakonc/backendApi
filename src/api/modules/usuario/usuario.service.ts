@@ -1,12 +1,12 @@
 import { Injectable, ConflictException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
-import { CreateUsuarioDto, ReadeUsuarioDto } from './dto';
+import { CreateUsuarioDto, ReadeUsuarioDto, UpdateUsuarioDto } from './dto';
 import { UsuarioRepository } from './usuario.repository';
 import { Usuario } from './usuario.entity';
 import { RoleRepository } from '../role/role.repository';
 import { Role } from '../role/role.entity';
-import { genSalt, hash } from 'bcryptjs';
+import { genSalt, hash, compare } from 'bcryptjs';
 import { StatusType } from 'src/api/shared/Utils/status.type.enum';
 
 
@@ -32,7 +32,7 @@ export class UsuarioService {
         return usuarios.map((user: Usuario) => plainToClass(ReadeUsuarioDto, user));
     }
 
-    async getOneUserActive(usuarioId: number) {
+    async getOneUserActive(usuarioId: number): Promise<Usuario> {
 
         const usuario = await this._usuarioRepositorio
             .createQueryBuilder('us')
@@ -45,7 +45,7 @@ export class UsuarioService {
 
         if (!usuario) throw new NotFoundException('Usuario No Encontrado');
 
-        return plainToClass(ReadeUsuarioDto, usuario);
+        return usuario;
     }
 
     async crearUsuario(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
@@ -72,9 +72,66 @@ export class UsuarioService {
 
         const saveUsuario = await this._usuarioRepositorio.save(usuario);
 
-        if (!saveUsuario) throw new ConflictException('No se Puede Crear el Usuario')
+        if (!saveUsuario) throw new ConflictException('No se Puede Crear el Usuario');
 
         return saveUsuario
+    }
+
+    async updateUsuario(usuarioId: number, updateUsuarioDto: UpdateUsuarioDto): Promise<Usuario> {
+        const { nombre, apellido, password, role } = updateUsuarioDto;
+
+        const userExists = await this._usuarioRepositorio
+            .createQueryBuilder('us')
+            .select(['us.id', 'us.nombre', 'us.apellido', 'us.correo', 'us.username', 'us.status', 'us.password'])
+            .addSelect(['ro.id', 'ro.name', 'ro.description', 'ro.status'])
+            .innerJoin('us.role', 'ro', 'us.role = ro.id')
+            .where('us.id = :id', { id: usuarioId })
+            .andWhere('us.status = :status', { status: StatusType.ACTIVO })
+            .getOne();
+
+        if (!userExists) throw new ConflictException('El Username Seleccionado no Existe');
+
+        const existRole: Role = await this._roleRepositorio.findOne(role);
+        if (!existRole) throw new NotFoundException('El Role no Existe');
+
+        userExists.nombre = nombre;
+        userExists.apellido = apellido;
+        userExists.role = existRole;
+
+        const isMatch = await compare(password, userExists.password);
+
+        if (!isMatch) {
+            const salt = await genSalt(10);
+            userExists.password = await hash(password, salt);
+        }
+
+        const updateUsuario = await this._usuarioRepositorio.save(userExists);
+        if (!updateUsuario) throw new ConflictException('No se Puede Actualizar el Usuario');
+
+        return updateUsuario;
+
+    }
+
+    async deleteUsuario(usuarioId: number) {
+
+        const userExists = await this._usuarioRepositorio
+            .createQueryBuilder('us')
+            .select(['us.id', 'us.nombre', 'us.apellido', 'us.correo', 'us.username', 'us.status', 'us.password'])
+            .addSelect(['ro.id', 'ro.name', 'ro.description', 'ro.status'])
+            .innerJoin('us.role', 'ro', 'us.role = ro.id')
+            .where('us.id = :id', { id: usuarioId })
+            .andWhere('us.status = :status', { status: StatusType.ACTIVO })
+            .getOne();
+
+        if (!userExists) throw new ConflictException('El Username Seleccionado no Existe');
+
+        userExists.status = StatusType.INACTIVO;
+
+        const deleteUsuario = await this._usuarioRepositorio.save(userExists);
+
+        if (!deleteUsuario) throw new ConflictException('No se Puede Eliminar el Usuario');
+
+        return deleteUsuario;
     }
 
 }
