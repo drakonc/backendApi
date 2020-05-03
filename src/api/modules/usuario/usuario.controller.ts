@@ -1,6 +1,6 @@
-import { Controller, Post, UsePipes, ValidationPipe, Body, Get, ParseIntPipe, Param } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Get, ParseIntPipe, Param, Put, Delete } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
-import { CreateUsuarioDto, ReadeUsuarioDto } from './dto';
+import { CreateUsuarioDto, ReadeUsuarioDto, UpdateUsuarioDto } from './dto';
 import { Usuario } from './usuario.entity';
 
 @Controller('usuario')
@@ -14,7 +14,7 @@ export class UsuarioController {
     }
 
     @Get(':usuarioId')
-    getOneUserActive(@Param('usuarioId', ParseIntPipe) usuarioId: number): Promise<ReadeUsuarioDto> {
+    getOneUserActive(@Param('usuarioId', ParseIntPipe) usuarioId: number): Promise<Usuario> {
         return this._usuarioService.getOneUserActive(usuarioId);
     }
 
@@ -23,4 +23,17 @@ export class UsuarioController {
     crearUsuario(@Body() usuario: CreateUsuarioDto): Promise<Usuario> {
         return this._usuarioService.crearUsuario(usuario);
     }
+
+    @Put('updateUsuario/:usuarioId')
+    @UsePipes(ValidationPipe)
+    updateUsuario(@Param('usuarioId', ParseIntPipe) usuarioId: number, @Body() usuario: UpdateUsuarioDto): Promise<Usuario> {
+        return this._usuarioService.updateUsuario(usuarioId, usuario);
+    }
+
+    @Delete('deleteUsuario/:usuarioId')
+    @UsePipes(ValidationPipe)
+    deleteUsuario(@Param('usuarioId', ParseIntPipe) usuarioId: number) {
+        return this._usuarioService.deleteUsuario(usuarioId);
+    }
+
 }
