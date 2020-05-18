@@ -14,13 +14,13 @@ export class VpnController {
     constructor(private readonly _vpnService: VpnService) { }
 
     @Get()
-    @Roles(RoleType.Administrador)
+    @Roles(RoleType.Administrador, RoleType.Tecnico)
     getAllVpn(): Promise<ReadVpnDto[]> {
         return this._vpnService.getAllVpns();
     }
 
     @Get(':vpnId')
-    @Roles(RoleType.Administrador)
+    @Roles(RoleType.Administrador, RoleType.Tecnico)
     getOneVpn(@Param('vpnId', ParseIntPipe) vpnId: number): Promise<ReadVpnDto> {
         return this._vpnService.getOneVpn(vpnId);
     }
