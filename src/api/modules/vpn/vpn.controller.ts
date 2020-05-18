@@ -39,7 +39,7 @@ export class VpnController {
         return this._vpnService.updateVpn(vpnId, vpn);
     }
 
-    @Delete('deleteVpn/:vpnId')
+    @Delete('/deleteVpn/:vpnId')
     @UsePipes(ValidationPipe)
     @Roles(RoleType.Administrador)
     deleteVpn(@Param('vpnId', ParseIntPipe) vpnId: number) {

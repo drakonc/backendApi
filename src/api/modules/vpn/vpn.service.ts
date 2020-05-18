@@ -56,7 +56,7 @@ export class VpnService {
             .where('us.username = :username', { username })
             .getOne();
 
-        if (!userExist) throw new NotFoundException('El usuario que crea la VPN no Existe');
+        if (!userExist) throw new NotFoundException('El usuario que quiere crea la VPN no Existe');
 
         vpn.nombre = createVpnDto.nombre;
         vpn.password = createVpnDto.password;
@@ -90,7 +90,7 @@ export class VpnService {
 
     }
 
-    async deleteVpn(vpnId: number) {
+    async deleteVpn(vpnId: number): Promise<ReadVpnDto> {
 
         const vpnExist = await this._vpnRepository.createQueryBuilder('vpn')
             .where('vpn.id = :id', { id: vpnId })

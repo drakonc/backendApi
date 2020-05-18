@@ -1,6 +1,7 @@
 import { IsString, IsNumber, IsDate } from 'class-validator';
 import { Exclude, Expose } from 'class-transformer';
 
+@Exclude()
 export class ReadPasswdDto {
 
     @Expose()
