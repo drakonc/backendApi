@@ -27,21 +27,21 @@ export class VpnController {
 
     @Post('/crearVpn')
     @UsePipes(ValidationPipe)
-    @Roles(RoleType.Administrador)
+    @Roles(RoleType.Administrador, RoleType.Tecnico)
     crearVpn(@Body() vpn: CreateVpnDto): Promise<ReadVpnDto> {
         return this._vpnService.createVpn(vpn);
     }
 
     @Put('/updateVpn/:vpnId')
     @UsePipes(ValidationPipe)
-    @Roles(RoleType.Administrador)
+    @Roles(RoleType.Administrador, RoleType.Tecnico)
     updateVpn(@Param('vpnId', ParseIntPipe) vpnId: number, @Body() vpn: UpdateVpnDto): Promise<ReadVpnDto> {
         return this._vpnService.updateVpn(vpnId, vpn);
     }
 
     @Delete('/deleteVpn/:vpnId')
     @UsePipes(ValidationPipe)
-    @Roles(RoleType.Administrador)
+    @Roles(RoleType.Administrador, RoleType.Tecnico)
     deleteVpn(@Param('vpnId', ParseIntPipe) vpnId: number) {
         return this._vpnService.deleteVpn(vpnId);
     }

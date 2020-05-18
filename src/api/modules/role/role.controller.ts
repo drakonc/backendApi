@@ -13,21 +13,25 @@ export class RoleController {
     constructor(private readonly _roleService: RoleService) { }
 
     @Get('/rolesActive')
+    @Roles(RoleType.Administrador)
     getAllRoleActive(): Promise<ReadRoleDto[]> {
         return this._roleService.getAllRoleActive();
     }
 
     @Get('/rolesInactive')
+    @Roles(RoleType.Administrador)
     getAllRoleInactive(): Promise<ReadRoleDto[]> {
         return this._roleService.getAllRoleInactive();
     }
 
     @Get()
+    @Roles(RoleType.Administrador)
     getAllRole(): Promise<ReadRoleDto[]> {
         return this._roleService.getAllRole();
     }
 
     @Get(':roleId')
+    @Roles(RoleType.Administrador)
     getRole(@Param('roleId', ParseIntPipe) roleId: number): Promise<ReadRoleDto> {
         return this._roleService.getRole(roleId);
     }
