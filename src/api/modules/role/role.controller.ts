@@ -7,6 +7,7 @@ import { Roles } from './decorators/role.decorators';
 import { RoleGuard } from './guards/role.guard';
 
 @Controller('role')
+@UseGuards(AuthGuard(), RoleGuard)
 export class RoleController {
 
     constructor(private readonly _roleService: RoleService) { }
@@ -31,23 +32,20 @@ export class RoleController {
         return this._roleService.getRole(roleId);
     }
 
-    @Roles(RoleType.Administrador)
-    @UseGuards(AuthGuard(), RoleGuard)
     @Post()
+    @Roles(RoleType.Administrador)
     createRole(@Body() role: Partial<CreateRoleDto>): Promise<ReadRoleDto> {
         return this._roleService.createRole(role);
     }
 
-    @Roles(RoleType.Administrador)
-    @UseGuards(AuthGuard(), RoleGuard)
     @Put(':roleId')
+    @Roles(RoleType.Administrador)
     updateRole(@Param('roleId', ParseIntPipe) roleId: number, @Body() role: Partial<UpdateRoleDto>): Promise<ReadRoleDto> {
         return this._roleService.update(roleId, role);
     }
 
-    @Roles(RoleType.Administrador)
-    @UseGuards(AuthGuard(), RoleGuard)
     @Delete(':roleId')
+    @Roles(RoleType.Administrador)
     async deleteRole(@Param('roleId', ParseIntPipe) roleId: number): Promise<Boolean> {
         await this._roleService.delete(roleId);
         return true;
