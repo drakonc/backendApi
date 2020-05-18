@@ -33,7 +33,7 @@ export class AuthService {
         const isMatch = await compare(password, user.password);
 
         if (!isMatch) throw new UnauthorizedException('Contraseña Invalida')
-        console.log('compara clave ', isMatch);
+
         const payload: IJwtPayload = {
             id: user.id,
             email: user.correo,
