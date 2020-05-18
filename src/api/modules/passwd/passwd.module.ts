@@ -3,7 +3,7 @@ import { PasswdController } from './passwd.controller';
 import { PasswdService } from './passwd.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PasswdRepository } from './passwd.repository';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule } from '../../auth/auth.module';
 import { UsuarioRepository } from '../usuario/usuario.repository';
 
 @Module({

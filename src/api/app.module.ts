@@ -3,7 +3,7 @@ import { ConfigModule } from './config/config.module';
 import { Configuration } from './config/config.key';
 import { ConfigService } from './config/config.service';
 import { RoleModule } from './modules/role/role.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { VpnModule } from './modules/vpn/vpn.module';

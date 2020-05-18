@@ -6,9 +6,9 @@ import { JwtModule } from '@nestjs/jwt'
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuthRepository } from './auth.repository';
-import { ConfigService } from '../../config/config.service';
-import { ConfigModule } from '../../config/config.module';
-import { Configuration } from '../../config/config.key';
+import { ConfigService } from '../config/config.service';
+import { ConfigModule } from '../config/config.module';
+import { Configuration } from '../config/config.key';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AuthRepository]), PassportModule.register({ defaultStrategy: 'jwt' }),

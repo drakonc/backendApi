@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { ReadeUsuarioDto } from '../../usuario/dto/read-usuario.dto';
+import { ReadeUsuarioDto } from '../../modules/usuario/dto/read-usuario.dto';
 import { Type, Exclude, Expose } from 'class-transformer';
 
 @Exclude()

@@ -5,10 +5,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { plainToClass } from 'class-transformer';
 import { SigninDto, LoggedInDto } from './dto';
-import { Usuario } from '../usuario/usuario.entity';
+import { Usuario } from '../modules/usuario/usuario.entity';
 import { compare } from 'bcryptjs';
 import { IJwtPayload } from './jwt-payload.interface';
-import { StatusType } from "../../shared/Utils/status.type.enum";
+import { StatusType } from "../shared/Utils/status.type.enum";
 
 @Injectable()
 export class AuthService {

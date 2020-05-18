@@ -1,4 +1,4 @@
-import { ReadRoleDto } from "../role/dto/read-role.dto";
+import { ReadRoleDto } from "../modules/role/dto/read-role.dto";
 
 export interface IJwtPayload {
     id: number;

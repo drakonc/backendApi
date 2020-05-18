@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoleRepository } from './role.repository';
 import { RoleService } from './role.service';
 import { RoleController } from './role.controller';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule } from '../../auth/auth.module';
 import { UsuarioRepository } from '../usuario/usuario.repository';
 
 
