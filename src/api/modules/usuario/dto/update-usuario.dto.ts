@@ -1,4 +1,4 @@
-import { IsString, MaxLength, IsNumber, IsEmail } from 'class-validator';
+import { IsString, MaxLength, IsNumber } from 'class-validator';
 
 export class UpdateUsuarioDto {
 

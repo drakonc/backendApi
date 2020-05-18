@@ -98,9 +98,7 @@ export class UsuarioService {
         userExists.apellido = apellido;
         userExists.role = existRole;
 
-        const isMatch = await compare(password, userExists.password);
-
-        if (!isMatch) {
+        if (password != userExists.password) {
             const salt = await genSalt(10);
             userExists.password = await hash(password, salt);
         }
