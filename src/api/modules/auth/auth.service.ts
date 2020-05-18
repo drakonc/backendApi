@@ -46,4 +46,5 @@ export class AuthService {
         return plainToClass(LoggedInDto, { token, user });
 
     }
+
 }
