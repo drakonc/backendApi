@@ -49,8 +49,8 @@ export class RoleController {
         return this._roleService.update(roleId, role);
     }
 
-    @Roles(RoleType.Administrador)
-    @UseGuards(AuthGuard(), RoleGuard)
+
+
     @Delete(':roleId')
     async deleteRole(@Param('roleId', ParseIntPipe) roleId: number): Promise<Boolean> {
         await this._roleService.delete(roleId);

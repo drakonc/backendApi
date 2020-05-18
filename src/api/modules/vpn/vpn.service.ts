@@ -19,6 +19,7 @@ export class VpnService {
 
         const vpns = await this._vpnRepository.createQueryBuilder('vpn')
             .select(['vpn.id', 'vpn.nombre', 'vpn.password', 'vpn.grupos', 'vpn.status', 'vpn.username'])
+            .where('vpn.status = :status', { status: StatusType.ACTIVO })
             .orderBy('vpn.nombre', 'ASC')
             .getMany();
 
@@ -31,6 +32,7 @@ export class VpnService {
         const vpn = await this._vpnRepository.createQueryBuilder('vpn')
             .select(['vpn.id', 'vpn.nombre', 'vpn.password', 'vpn.grupos', 'vpn.status', 'vpn.username'])
             .where('vpn.id = :id', { id: vpnId })
+            .andWhere('vpn.status = :status', { status: StatusType.ACTIVO })
             .getOne();
 
         if (!vpn) throw new NotFoundException('Vpn No Encontrada');
