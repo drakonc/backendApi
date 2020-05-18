@@ -6,9 +6,10 @@ import { RoleModule } from './modules/role/role.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
+import { VpnModule } from './modules/vpn/vpn.module';
 
 @Module({
-  imports: [ConfigModule, RoleModule, AuthModule, DatabaseModule, UsuarioModule]
+  imports: [ConfigModule, RoleModule, AuthModule, DatabaseModule, UsuarioModule, VpnModule]
 })
 export class AppModule {
   static port: number | string;

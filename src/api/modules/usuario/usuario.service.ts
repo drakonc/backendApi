@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { CreateUsuarioDto, ReadeUsuarioDto, UpdateUsuarioDto } from './dto';
@@ -7,7 +7,7 @@ import { Usuario } from './usuario.entity';
 import { RoleRepository } from '../role/role.repository';
 import { Role } from '../role/role.entity';
 import { genSalt, hash, compare } from 'bcryptjs';
-import { StatusType } from 'src/api/shared/Utils/status.type.enum';
+import { StatusType } from '../../shared/Utils/status.type.enum';
 
 
 @Injectable()
@@ -63,7 +63,7 @@ export class UsuarioService {
         const existRole: Role = await this._roleRepositorio.findOne(role);
         if (!existRole) throw new NotFoundException('El Role no Existe');
 
-        usuario.nombre = createUsuarioDto.nombre
+        usuario.nombre = createUsuarioDto.nombre;
         usuario.apellido = createUsuarioDto.apellido;
         usuario.correo = createUsuarioDto.correo;
         usuario.username = createUsuarioDto.username;
@@ -89,7 +89,7 @@ export class UsuarioService {
             .andWhere('us.status = :status', { status: StatusType.ACTIVO })
             .getOne();
 
-        if (!userExists) throw new ConflictException('El Username Seleccionado no Existe');
+        if (!userExists) throw new NotFoundException('El Username Seleccionado no Existe');
 
         const existRole: Role = await this._roleRepositorio.findOne(role);
         if (!existRole) throw new NotFoundException('El Role no Existe');
@@ -132,6 +132,7 @@ export class UsuarioService {
         if (!deleteUsuario) throw new ConflictException('No se Puede Eliminar el Usuario');
 
         return deleteUsuario;
+
     }
 
 }
