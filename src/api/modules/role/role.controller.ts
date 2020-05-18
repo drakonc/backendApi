@@ -11,15 +11,11 @@ export class RoleController {
 
     constructor(private readonly _roleService: RoleService) { }
 
-    @Roles(RoleType.Administrador)
-    @UseGuards(AuthGuard(), RoleGuard)
     @Get('/rolesActive')
     getAllRoleActive(): Promise<ReadRoleDto[]> {
         return this._roleService.getAllRoleActive();
     }
 
-    @Roles(RoleType.Administrador)
-    @UseGuards(AuthGuard(), RoleGuard)
     @Get('/rolesInactive')
     getAllRoleInactive(): Promise<ReadRoleDto[]> {
         return this._roleService.getAllRoleInactive();
@@ -49,8 +45,8 @@ export class RoleController {
         return this._roleService.update(roleId, role);
     }
 
-
-
+    @Roles(RoleType.Administrador)
+    @UseGuards(AuthGuard(), RoleGuard)
     @Delete(':roleId')
     async deleteRole(@Param('roleId', ParseIntPipe) roleId: number): Promise<Boolean> {
         await this._roleService.delete(roleId);
