@@ -25,6 +25,10 @@ export class ReadVpnDto {
     readonly username: string;
 
     @Expose()
+    @IsString()
+    readonly status: string;
+
+    @Expose()
     @IsDate()
     readonly createAt: Date;
 
